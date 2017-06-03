@@ -1,0 +1,24 @@
+{
+  "globals": {},
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true,
+    "jasmine": true,
+    "mocha": true
+  },
+  "rules": {
+    "no-console": "off",
+    "indent": [ "error", 2 ],
+    "semi": ["error", "always"],
+    "linebreak-style": [ "error", "unix" ],
+    "comma-dangle": ["error", "always-multiline"],
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }]
+  },
+  "ecmaFeatures": {
+    "modules": true,
+    "impliedStrict": true,
+    "experimentalObjectRestSpread": true
+  },
+  "extends": "eslint:recommended"
+}
