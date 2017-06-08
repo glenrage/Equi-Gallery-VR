@@ -9,9 +9,27 @@ MONGODB_URI='mongodb://localhost/eq-gallery-vr'
 
 # Notes
 -public has front end files
--server has server files, obviously
+-server has server files
 
 -if you make important changes please update readme
+
+# Semantic file naming
+
+-Please try and keep file names semantically, like so, and camel case
+(subject name) (type of file)
+
+```
+user--model-test.js (for test files)
+album-model-test.js
+album-route-test.js
+
+user-model.js (for schemas)
+
+user-route.js(for routes)
+
+album-controller.js (controllers)
+
+```
 
 # Landing View
 
