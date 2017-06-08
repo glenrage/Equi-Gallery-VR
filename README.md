@@ -9,7 +9,9 @@ MONGODB_URI='mongodb://localhost/eq-gallery-vr'
 
 # Notes
 -public has front end files
+
 -server has server files
+
 -Create tasks and assign them accordingly in the Projects tab
 
 -if you make important changes please update readme
