@@ -51,3 +51,14 @@ Upon signup, User automatically gets a GALLERY.
 
 Parent - User, user will have a child called gallery, and gallery with have sub child of albums.
 
+# State management
+
+Login State - Logout, My Galleries links on Nav Bar 
+
+Non Login State - Login/Register links on Nav bar
+
+# Creating a gallery
+To create a gallery a small window should pop up with form inputs, name, description, and a button for multiple file uploads
+
+
+
