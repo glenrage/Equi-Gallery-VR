@@ -8,9 +8,9 @@ const Gallery = require('../../server/model/gallery-model.js');
 module.exports = function(done) {
   debug('scrub database');
   Promise.all([
-    Pic.remove({}),
+    // Pic.remove({}),
     User.remove({}),
-    Gallery.remove({}),
+    // Gallery.remove({}),
   ])
   .then( () => done())
   .catch(done);
