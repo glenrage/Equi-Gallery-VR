@@ -33,6 +33,27 @@ user-route.js(for routes)
 album-controller.js (controllers)
 
 ```
+# API ROUTES
+
+## User routes
+/api/signup    POST
+/api/login     GET
+/api/user/:id  PUT
+/api/user/:id  DELETE
+
+## Gallery Routes
+/api/gallery       POST
+/api/gallery/:id   GET
+/api/gallery/:id   PUT
+/api/gallery/:id   DELETE
+
+## Photo Routes
+/api/gallery/:galleryId/photo   POST
+/api/gallery/:galleryId/photo/:photoId   DELETE
+
+/api/public/pic   GET
+/api/pic    GET (private route)
+
 
 # Landing View
 
