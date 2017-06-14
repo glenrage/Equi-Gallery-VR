@@ -1,16 +1,16 @@
 const debug = require('debug')('equi-gallery:user-mock');
-const User = require('../../model/user-model.js');
+// const User = require('../../model/user-model.js');
 
 
 module.exports = function(done){
   debug('create mock user');
   let username = 'Test' + Math.floor(Math.random() * (100 - 1))
-  let password = '123'
-  let email = '123'
+  let password = '12345678'
+  let email = 'test'
   let exampleUser = {
     username,
     password,
-    email: `${email}@slug.slug`,
+    email: `${email}@test.vr`,
   };
   this.tempPassword = password;
   new User(exampleUser)
