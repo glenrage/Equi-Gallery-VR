@@ -3,7 +3,8 @@ const request = require('superagent');
 const Promise = require('bluebird');
 const mongoose = require('mongoose');
 const mockUser = require('./lib/mock-user.js');
-const cleanDB = require('./lib/clean-db.js');
+const cleanDb = require('./lib/clean-db.js');
+const serverCtrl = require('./lib/server-ctrl.js');
 
 mongoose.Promise = Promise;
 
@@ -19,9 +20,28 @@ const exampleUser = {
 describe('testing auth-router', function() {
 
   before(done => serverCtrl.serverUp(server, done));
-
   after(done => serverCtrl.serverDown(server, done));
+  afterEach(done => cleanDb(done));
 
-  afterEach(done => scrubDb(done));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 });
