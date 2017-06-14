@@ -17,7 +17,7 @@ const exampleUser = {
   email: 'glen@glenrage.com',
 };
 
-describe('testing auth-router', function() {
+describe.only('testing auth-router', function() {
 
   before(done => serverCtrl.serverUp(server, done));
   after(done => serverCtrl.serverDown(server, done));
@@ -82,11 +82,66 @@ describe('testing auth-router', function() {
       });
 
       describe('with duplicate email', function() {
-        before(done => mockUser.call(this, done))
+        before(done => mockUser.call(this, done));
+        it('should respond with status 409', (done) => {
+          request.post(`${url}/api/signup`)
+          .send({
+            username: exampleUser.username,
+            password: exampleUser.password,
+            email: this.tempUser.email,
+          })
+          .end((err, res) => {
+            expect(res.status).to.equal(409);
+            // expect(res.text).to.equal('ConflictError')
+            done();
+          });
+        });
+      });
+      describe('with no email', function(){
+        it('should respond with status 400', (done) => {
+          request.post(`${url}/api/signup`)
+        .send({
+          username: exampleUser.username,
+          password: exampleUser.password,
+        })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.text).to.equal('BadRequestError');
+          done();
+        });
+        });
+      });
+
+      describe('with no password', function(){
+        it('should respond with status 400', (done) => {
+          request.post(`${url}/api/signup`)
+      .send({
+        email: exampleUser.email,
+        username: exampleUser.username,
       })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.text).to.equal('BadRequestError');
+        done();
+      });
+        });
+      });
 
-
-
+      describe('with password.length < 6', function(){
+        it('should respond with status 400', (done) => {
+          request.post(`${url}/api/signup`)
+        .send({
+          email: exampleUser.email,
+          password: '124',
+          username: exampleUser.username,
+        })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.text).to.equal('BadRequestError');
+          done();
+        });
+        });
+      });
     });
   });
 

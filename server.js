@@ -15,6 +15,7 @@ const passport = require('passport'); // Express-compatible authentication middl
 // const userRouter = require('./server/routes/user-router'); // Import the application end points/API
 // const galleryRouter = require('./server/routes/gallery-router')
 const errorMiddleware = require('./server/lib/error-middleware.js');
+const authRouter = require('./server/route/auth-router.js');
 
 //load env vars
 dotenv.load();
@@ -42,15 +43,14 @@ app.use(morgan(morganFormat));
 app.use(express.static(`${__dirname}/public`)); // Allow front end to access public folder
 
 //app routes
-// app.use(userRouter); // Assign name to end points (e.g api/user, api/gallery)
-// app.use(galleryRouter); // Assign name to end points (e.g api/user, api/gallery)
 app.use(errorMiddleware);
+app.use(authRouter);
 
 
 // Set Application Static Layout
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/app/view/index.html')); // Set index.html as layout
-});
+// app.get('*', function(req, res) {
+//   res.sendFile(path.join(__dirname + '/public/app/view/index.html')); // Set index.html as layout
+// });
 
 // Start Server
 const server = module.exports = app.listen(PORT, () => {
