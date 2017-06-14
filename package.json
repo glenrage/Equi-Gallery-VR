@@ -2,7 +2,7 @@
   "name": "equi-gallery",
   "version": "1.0.0",
   "description": "A gallery for photographers to upload equirectangular photos and view them in VR",
-  "main": "entry.js",
+  "main": "server.js",
   "directories": {
     "test": "test"
   },
