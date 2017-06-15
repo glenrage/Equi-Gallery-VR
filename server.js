@@ -16,6 +16,7 @@ const passport = require('passport'); // Express-compatible authentication middl
 // const galleryRouter = require('./server/routes/gallery-router')
 const errorMiddleware = require('./server/lib/error-middleware.js');
 const authRouter = require('./server/route/auth-router.js');
+const galleryRouter = require('./server/route/gallery-router.js');
 
 //load env vars
 dotenv.load();
@@ -45,6 +46,7 @@ app.use(express.static(`${__dirname}/public`)); // Allow front end to access pub
 //app routes
 app.use(errorMiddleware);
 app.use(authRouter);
+app.use(galleryRouter);
 
 
 // Set Application Static Layout
