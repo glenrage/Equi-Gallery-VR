@@ -22,3 +22,7 @@ function mockRes (){
   };
   return res;
 }
+
+describe('test errorMiddleware', function(){
+
+});
