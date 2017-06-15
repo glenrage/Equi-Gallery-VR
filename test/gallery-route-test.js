@@ -7,7 +7,7 @@ const Promise = require('bluebird');
 
 const server = require('../server.js');
 const mockGallery = require('./lib/mock-gallery.js');
-const serverCtrl = require('./lib/server-controller');
+const serverCtrl = require('./lib/server-ctrl');
 const cleanDB = require('./lib/clean-db.js');
 const url = `http://localhost:${process.env.PORT}`;
 
@@ -61,7 +61,7 @@ describe.only('Testing api/gallery', function() {
 
   describe('#PUT api/gallery/:id', () => {
     it('should respond with status 201', done => {
-      superagent.put(`${url}/api/gallery/${1234}`)
+      superagent.put(`${url}/api/gallery/${}`)
       .send()
       .end((err, res) => {
         expect(res.status).to.equal(201);
@@ -72,7 +72,7 @@ describe.only('Testing api/gallery', function() {
 
   describe('#DELETE api/gallery/:id', () => {
     it('should respond with status 204', done => {
-      superagent.delete(`${url}/api/gallery/${1234}`)
+      superagent.delete(`${url}/api/gallery/${}`)
       .send()
       .end((err, res) => {
         expect(res.status).to.equal(204);

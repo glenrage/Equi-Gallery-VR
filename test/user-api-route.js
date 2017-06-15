@@ -7,7 +7,7 @@ const Promise = require('bluebird');
 
 const server = require('../server.js');
 const mockGallery = require('./lib/mock-gallery.js');
-const serverCtrl = require('./lib/server-controller');
+const serverCtrl = require('./lib/server-ctrl');
 const cleanDB = require('./lib/clean-db.js');
 const url = `http://localhost:${process.env.PORT}`;
 
@@ -65,7 +65,7 @@ describe.only('testing api/user route', function() {
       .end((err, res) => {
         expect(res.status).to.equal(204);
       });
+      done();
     });
-    done();
   });
 });
