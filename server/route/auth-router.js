@@ -38,12 +38,3 @@ authRouter.get('/api/login', basicAuth, function(req, res, next) {
   .then(user => res.status(200).json({user:`${user.id}`}))
   .catch(next);
 });
-
-authRouter.put('/api/user/:id', bearerAuth, (req, res) => {
-  debug('PUT /api/user/:id');
-
-  User.findByIdAndUpdate({_id: req.params.id }, req.body, {new: true})
-  .then(data => {
-    res.json(data);
-  });
-});
