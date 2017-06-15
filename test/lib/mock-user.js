@@ -13,6 +13,7 @@ module.exports = function(done){
     username,
     password,
     email: `${email}@test.com`,
+    id: 12345,
   };
   this.tempPassword = password;
   new User(exampleUser)
