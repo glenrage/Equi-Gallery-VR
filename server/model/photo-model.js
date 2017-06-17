@@ -3,9 +3,7 @@
 const mongoose = require('mongoose');
 
 const photoSchema = mongoose.Schema({
-  name: {type: String, required: true},
   desc: {type: String, required: true},
-  username: {type: String, required: true},
   userID: {type: mongoose.Schema.Types.ObjectId, required: true},
   // galleryID:{type: mongoose.Schema.Types.ObjectId, required: true},
   likes: {type: Number, default: 0},
