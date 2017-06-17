@@ -21,11 +21,11 @@ const upload = multer({dest: dataDir});
 const s3UploadPromise = require('../lib/s3-upload-promise.js');
 const photoRouter = module.exports = require('express').Router();
 
-photoRouter.post('/api/gallery/:galleryID/photo', bearerAuth, upload.single('file'), function(req, res, next) {
-  debug('POST /api/gallery/:galleryID/pic');
+photoRouter.post('/api/photo', bearerAuth, upload.single('file'), function(req, res) {
+  debug('POST /api/photo');
+  console.log(req.user);
 
-  if(!req.file)
-    return next(createError(400, 'file not found'));
+  if(!req.file) return Promise.reject(createError(400, 'file not found'));
 
   let ext = path.extname(req.file.originalname);
 
@@ -36,32 +36,69 @@ photoRouter.post('/api/gallery/:galleryID/photo', bearerAuth, upload.single('fil
     Body: fs.createReadStream(req.file.path),
   };
 
-  let tempGallery, tempPhoto;
-  Gallery.findById(req.params.galleryID)
-    .catch(err => Promise.reject(createError(404, err.message)))
-    .then(gallery => {
-      tempGallery = gallery;
-      return s3UploadPromise(params);
-    })
-    .catch(err => err.status ? Promise.reject(err) : Promise.reject(createError(500, err.message)))
-    .then(s3data => {
-      del([`${dataDir}/*`]);
-      let photoData = {
-        name: req.body.name,
-        username: req.user.username,
-        desc: req.body.desc,
-        objectKey: s3data.Key,
-        imageURI: s3data.Location,
-        userID: req.user._id,
-      };
-      return new Photo(photoData).save();
-    })
-    .then(() => res.json(tempPhoto))
-    .catch(err => {
-      del([`${dataDir}/*`]);
-      next(err);
-    });
+  // let tempPhoto;
+  return s3UploadPromise(params)
+  .then(s3data => {
+    del([`${dataDir}/*`]);
+    let photoData = {
+      name: req.body.name,
+      username: req.user.username,
+      desc: req.body.desc,
+      objectKey: s3data.Key,
+      imageURI: s3data.Location,
+      userID: req.user._id,
+    };
+    return new Photo(photoData).save();
+  })
+  .then(photo => res.json(photo))
+  .catch(err => err.status ? Promise.reject(err) : Promise.reject(createError(500, err.message)))
+  .catch(err => {
+    del([`${dataDir}/*`]);
+    next(err);
+  });
 });
+
+// photoRouter.post('/api/gallery/:galleryID/photo', bearerAuth, upload.single('file'), function(req, res, next) {
+//   debug('POST /api/gallery/:galleryID/pic');
+//
+//   if(!req.file)
+//     return next(createError(400, 'file not found'));
+//
+//   let ext = path.extname(req.file.originalname);
+//
+//   let params = {
+//     ACL: 'public-read',
+//     Bucket: process.env.AWS_BUCKET,
+//     Key: `${req.file.filename}${ext}`,
+//     Body: fs.createReadStream(req.file.path),
+//   };
+//
+//   let tempGallery, tempPhoto;
+//   Gallery.findById(req.params.galleryID)
+//     .catch(err => Promise.reject(createError(404, err.message)))
+//     .then(gallery => {
+//       tempGallery = gallery;
+//       return s3UploadPromise(params);
+//     })
+//     .catch(err => err.status ? Promise.reject(err) : Promise.reject(createError(500, err.message)))
+//     .then(s3data => {
+//       del([`${dataDir}/*`]);
+//       let photoData = {
+//         name: req.body.name,
+//         username: req.user.username,
+//         desc: req.body.desc,
+//         objectKey: s3data.Key,
+//         imageURI: s3data.Location,
+//         userID: req.user._id,
+//       };
+//       return new Photo(photoData).save();
+//     })
+//     .then(() => res.json(tempPhoto))
+//     .catch(err => {
+//       del([`${dataDir}/*`]);
+//       next(err);
+//     });
+// });
 
 photoRouter.delete('/api/gallery/:galleryID/pic/:picID', bearerAuth, function(req, res, next) {
   debug('DELETE /api/gallery/:galleryID/pic/:picID');

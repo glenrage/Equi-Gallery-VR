@@ -11,7 +11,7 @@
     "build-watch": "webpack-dev-server --inline --hot",
     "lint": "./node_modules/eslint/bin/eslint.js .",
     "start": "node server.js",
-    "start-debug": "DEBUG='slug*' npm start",
+    "start-debug": "DEBUG='equi-gallery*' npm run start",
     "test": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "test-debug": "DEBUG='slug*' ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha"
