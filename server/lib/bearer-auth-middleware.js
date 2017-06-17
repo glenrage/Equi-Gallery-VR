@@ -1,31 +1,28 @@
 'use strict';
 
-// npm modules
 const jwt = require('jsonwebtoken');
 const createError = require('http-errors');
-const debug = require('debug')('equi-gallery:bearer-middleware');
+const debug = require('debug')('equi-gallery:bearer-auth-middleware');
 
-// app modules
-const User = require('../model/user-model.js');
+const User = require('../model/user-model');
 
-module.exports = function(req, res, next){
-  debug();
-  let authHeader = req.headers.authorization;
-  if (!authHeader)
-    return next(createError(400, 'requires auth header'));
+module.exports = function(req, res, next) {
+  debug('#bearer-auth-middleware');
 
-  let token = authHeader.split('Bearer ')[1];
-  if (!token)
-    return next(createError(400, 'requires token'));
+  let authHeaders = req.headers.authorization;
+  if (!authHeaders) return next(createError(401, 'Authorization headers required'));
+
+  let token = authHeaders.split('Bearer ')[1];
+  if (!token) return next(createError(401, 'Token required'));
 
   jwt.verify(token, process.env.APP_SECRET, (err, decoded) => {
-    if (err)
-      return next(createError(401, 'requires token'));
+    if (err) return next(err);
+
     User.findOne({findHash: decoded.token})
-    .then( user => {
-      if (!user) return next(createError(401, 'user no longer exists or has new token'));
+    .then(user => {
       req.user = user;
       next();
-    });
+    })
+    .catch(err => next(createError(401, err.message)));
   });
 };
