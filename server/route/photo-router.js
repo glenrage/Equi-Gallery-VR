@@ -11,7 +11,7 @@ const debug = require('debug')('equi-gallery:photo-router');
 const bearerAuth = require('../lib/error-middleware.js');
 
 const Photo = require('../model/photo-model.js');
-const Gallery = require('../model/gallery-model.js');
+const User = require('../model/user-model.js');
 
 AWS.config.setPromisesDependency(require('bluebird'));
 
@@ -21,8 +21,8 @@ const upload = multer({dest: dataDir});
 const s3UploadPromise = require('../lib/s3-upload-promise.js');
 const photoRouter = module.exports = require('express').Router();
 
-photoRouter.post('/api/gallery/:galleryID/photo', bearerAuth, upload.single('file'), function(req, res, next) {
-  debug('POST /api/gallery/:galleryID/pic');
+photoRouter.post('/api/:userID/photo', bearerAuth, upload.single('file'), function(req, res, next) {
+  debug('POST /api/:userID/photo');
 
   if(!req.file)
     return next(createError(400, 'file not found'));
@@ -36,23 +36,22 @@ photoRouter.post('/api/gallery/:galleryID/photo', bearerAuth, upload.single('fil
     Body: fs.createReadStream(req.file.path),
   };
 
-  let tempGallery, tempPhoto;
-  Gallery.findById(req.params.galleryID)
+  let tempUser, tempPhoto;
+  User.findById(req.params.userID)
     .catch(err => Promise.reject(createError(404, err.message)))
-    .then(gallery => {
-      tempGallery = gallery;
+    .then(user => {
+      console.log('user ' + user)
+      tempUser = user;
       return s3UploadPromise(params);
     })
     .catch(err => err.status ? Promise.reject(err) : Promise.reject(createError(500, err.message)))
     .then(s3data => {
       del([`${dataDir}/*`]);
       let photoData = {
-        name: req.body.name,
-        username: req.user.username,
         desc: req.body.desc,
         objectKey: s3data.Key,
         imageURI: s3data.Location,
-        userID: req.user._id,
+        userID: req.body.userID,
       };
       return new Photo(photoData).save();
     })
@@ -63,8 +62,8 @@ photoRouter.post('/api/gallery/:galleryID/photo', bearerAuth, upload.single('fil
     });
 });
 
-photoRouter.delete('/api/gallery/:galleryID/pic/:picID', bearerAuth, function(req, res, next) {
-  debug('DELETE /api/gallery/:galleryID/pic/:picID');
+photoRouter.delete('/api/:userID/photo/:photoID', bearerAuth, function(req, res, next) {
+  debug('DELETE /api/:userID/photo/:photoID');
 
   let tempPhoto;
   Photo.findById(req.params.photoID)
@@ -72,15 +71,15 @@ photoRouter.delete('/api/gallery/:galleryID/pic/:picID', bearerAuth, function(re
     if(photo.userID.toString() !== req.user._id.toString())
       return Promise.reject(createError(401, 'user not authorized to delete this pic'));
     tempPhoto = photo;
-    return Gallery.findById(req.params.galleryID);
+    return User.findById(req.params.userID);
   })
   .catch(err => err.status ? Promise.reject(err) : Promise.reject(createError(404, err.message)))
-  .then(gallery => {
-    gallery.pics = gallery.pics.filter(id => {
+  .then(user => {
+    user.pics = user.pics.filter(id => {
       if(id === req.params.photoID) return false;
       return true;
     });
-    return gallery.save() ;
+    return user.save() ;
   })
   .then(() => {
     let params = {
