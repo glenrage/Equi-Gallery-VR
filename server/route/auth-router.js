@@ -35,6 +35,7 @@ authRouter.get('/api/login', basicAuth, function(req, res, next) {
   User.findOne({username: req.auth.username})
   .then(user => user.comparePasswordHash(req.auth.password))
   .catch(err => Promise.reject(createError(401, err.message)))
-  .then(user => res.status(200).json({user:`${user.id}`}))
+  .then(user => user.generateToken())
+  .then(token => res.send(token))
   .catch(next);
 });
