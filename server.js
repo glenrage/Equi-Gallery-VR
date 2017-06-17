@@ -45,10 +45,10 @@ app.use(morgan(morganFormat));
 app.use(express.static(`${__dirname}/public`)); // Allow front end to access public folder
 
 //app routes
-app.use(errorMiddleware);
-app.use(authRouter);
-app.use(galleryRouter);
 app.use(photoRouter);
+app.use(galleryRouter);
+app.use(authRouter);
+app.use(errorMiddleware);
 
 
 // Set Application Static Layout
