@@ -14,7 +14,9 @@ const Schema = mongoose.Schema;
 const userSchema = Schema({
   username: {type: String, required: true, unique: true, minlength: 4},
   email: {type: String, required: true, unique: true},
+  bio: {type: String},
   password: {type: String, required: true},
+  photos: [{type: mongoose.Schema.Types.ObjectId, ref: 'photo'}],
   findHash: {type: String, unique: true},
 });
 

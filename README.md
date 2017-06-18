@@ -4,8 +4,9 @@
 
 ```
 PORT=3000
-
 MONGODB_URI='mongodb://localhost/eq-gallery-vr'
+APP_SECRET='123 hahahahaha'
+API_URL=http://localhost:3000/
 ```
 
 
