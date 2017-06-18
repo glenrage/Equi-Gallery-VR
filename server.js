@@ -52,9 +52,9 @@ app.use(errorMiddleware);
 
 
 // Set Application Static Layout
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/app/views/index.html')); // Set index.html as layout
-});
+// app.get('*', function(req, res) {
+//   res.sendFile(path.join(__dirname + '/public/app/views/index.html')); // Set index.html as layout
+// });
 
 // Start Server
 const server = module.exports = app.listen(PORT, () => {

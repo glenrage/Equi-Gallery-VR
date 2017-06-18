@@ -7,13 +7,13 @@ app.config(function($routeProvider, $locationProvider) {
   $routeProvider
 
   .when('/', {
-    templateUrl: 'public/app/views/index.html'
+    templateUrl: 'public/app/views/index.html',
   })
 
-  .when('/register', {
-    templateUrl: 'public/app/views/pages/users/register.html',
-    controller: 'regCtrl',
-    controllerAs: 'register',
+  .when('/signup', {
+    templateUrl: 'public/app/views/pages/users/signup.html',
+    controller: 'signupCtrl',
+    controllerAs: 'signup',
   })
 
   .when('/login', {
