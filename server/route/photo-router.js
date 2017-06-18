@@ -8,7 +8,7 @@ const AWS = require('aws-sdk');
 const multer = require('multer');
 const createError = require('http-errors');
 const debug = require('debug')('equi-gallery:photo-router');
-const bearerAuth = require('../lib/error-middleware.js');
+const bearerAuth = require('../lib/bearer-auth-middleware.js');
 
 const Photo = require('../model/photo-model.js');
 const User = require('../model/user-model.js');
@@ -21,14 +21,14 @@ const upload = multer({dest: dataDir});
 const s3UploadPromise = require('../lib/s3-upload-promise.js');
 const photoRouter = module.exports = require('express').Router();
 
-photoRouter.post('/api/photo', bearerAuth, upload.single('file'), function(req, res) {
+photoRouter.post('/api/photo', bearerAuth, upload.single('image'), function(req, res) {
   debug('POST /api/photo');
-  console.log(req.user);
 
-  if(!req.file) return Promise.reject(createError(400, 'file not found'));
+  if (!req.file) return createError(400, 'Resource required');
+  if (!req.file.path) return createError(500, 'File not saved');
 
+  let tempPhoto, tempUser;
   let ext = path.extname(req.file.originalname);
-
   let params = {
     ACL: 'public-read',
     Bucket: process.env.AWS_BUCKET,
@@ -36,25 +36,30 @@ photoRouter.post('/api/photo', bearerAuth, upload.single('file'), function(req, 
     Body: fs.createReadStream(req.file.path),
   };
 
-  return s3UploadPromise(params)
-  .then(s3data => {
+  return User.findById(req.user._id)
+  .then(user => {
+    tempUser = user;
+    return s3UploadPromise(params);
+  })
+  .then(s3Data => {
     del([`${dataDir}/*`]);
     let photoData = {
       name: req.body.name,
-      username: req.user.username,
       desc: req.body.desc,
-      objectKey: s3data.Key,
-      imageURI: s3data.Location,
+      username: req.user.username,
       userID: req.user._id,
+      imageURI: s3Data.Location,
+      objectKey: s3Data.Key,
     };
     return new Photo(photoData).save();
   })
-  .then(photo => res.json(photo))
-  .catch(err => err.status ? Promise.reject(err) : Promise.reject(createError(500, err.message)))
-  .catch(err => {
-    del([`${dataDir}/*`]);
-    next(err);
-  });
+  .then(photo => {
+    tempPhoto = photo;
+    tempUser.photos.push(photo._id);
+    return User.findByIdAndUpdate(req.user._id, tempUser, {new: true});
+  })
+  .then(() => res.json(tempPhoto))
+  .catch(err => res.send(err));
 });
 
 photoRouter.delete('/api/gallery/:galleryID/pic/:picID', bearerAuth, function(req, res, next) {
