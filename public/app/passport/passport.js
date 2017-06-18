@@ -1,5 +1,6 @@
 'use strict';
 
+const dotenv = require('dotenv');
 let FaceBookStrategy = require('passport-facebook').Strategy; // Import passport-facebook package
 let TwitterStrategy = require('passport-twitter').Strategy; //Import passport-twitter package
 let GoogleStrategy = require('passport-google-oauth').OAuth2Strategy; //Import Passport Google package
@@ -7,6 +8,8 @@ let User = require('../server/model/user-model.js'); //Import user model
 let session = require('express-session'); //import express session package
 let jwt = require('jsonwebtoken'); //import jwt package
 let secret = 'airbud'; //create custom secret to use with jwt
+
+dotenv.load();
 
 module.exports = function(app, passport) {
   //start passport configuration settings
@@ -38,9 +41,9 @@ module.exports = function(app, passport) {
 
   //Facebook Strategy
   passport.use(new FaceBookStrategy({
-    clientId: 'INSERT OUR DEVELOPER ID HERE', //replace with our facebook developer app client id
-    clientSecret: 'INSERT CLIENT SECRET HERE', //replace with our fb developer client Secret
-    callbackURL: 'http://insertourdevelopercallbackurlhere', //replace with our fb developer app callback url
+    clientId: process.env.FACEBOOK_CLIENT_ID, //replace with our facebook developer app client id
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET, //replace with our fb developer client Secret
+    callbackURL: 'http://localhost:3000/auth/facebook/callback', //replace with our fb developer app callback url
     profileFields: ['id', 'displayName', 'photos', 'email']
   },
     function(accessToken, refreshToken, profile, done) {
@@ -57,9 +60,9 @@ module.exports = function(app, passport) {
 
     //Twitter Strategy
     passport.use(new TwitterStrategy({
-      consumerKey: 'INSERT TWITTER DEVELOPER APP CONSUMER KEY', //replace with twitter dev ap consumer KEY
-      consumerSecret: 'REPLACE WITH DEV APP CONSUMER SECRET', //replace with twitter dev app consumer SECRET
-      callbackURL: 'REPLACE WITH DEV APP CALLBACK URL', //replace with twitter deve app callback url
+      consumerKey: process.env.TWITTER_KEY, //replace with twitter dev ap consumer KEY
+      consumerSecret: process.env.TWITTER_SECRET, //replace with twitter dev app consumer SECRET
+      callbackURL: 'http://localhost:3000/auth/twitter/callback', //replace with twitter deve app callback url
       userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true'
     },
     function(token, tokenSecret, profile, done) {
@@ -87,9 +90,9 @@ module.exports = function(app, passport) {
 
   //Google Strategy
   passport.use(new GoogleStrategy({
-    clientID: 'REPLACE WITH DEV APP CLIENTID', //replace with google developer app client id
-    clientSecret: 'REPLACE WITH DEV APP CLIENT SECRET', //replace with google developer app client SECRET
-    callbackURL: 'REPLACE WITH DEV APP CALLBACK URL' //replace with google dev app callbackURL
+    clientID: process.env.GOOGLE_CLIENT_ID, //replace with google developer app client id
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET, //replace with google developer app client SECRET
+    callbackURL: 'http://localhost:3000/auth/google/callback' //replace with google dev app callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOne({ email: profile.emails[0].value}).select('username active password email').exec(function(err, user) {
