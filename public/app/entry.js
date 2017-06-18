@@ -1,3 +1,7 @@
 'use strict';
 
-angular.module('mainApp', ['ng','appRoutes', 'ngResource'])
+angular.module('mainApp', ['appRoutes','ng', 'ngResource'])
+
+.config(function($httpProvider) {
+  $httpProvider.interceptors.push('AuthInterceptors');
+});
