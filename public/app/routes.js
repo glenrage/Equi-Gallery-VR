@@ -1,10 +1,8 @@
 'use strict';
 
-require('angular');
-
 const app = angular.module('appRoutes', ['ngRoute']);
 
-.config(function($routeProvider, $locationProvider) {
+app.config(function($routeProvider, $locationProvider) {
 
   $routeProvider
 
@@ -35,8 +33,8 @@ const app = angular.module('appRoutes', ['ngRoute']);
     templateUrl: 'app/views/pages/vr/vr-image.html',
     controller: 'ImageCtrl'
   })
-  
-  otherwise({
+
+  .otherwise({
     redirectTo: '/'
   })
 

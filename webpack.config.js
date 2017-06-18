@@ -12,7 +12,7 @@ const production = process.env.NODE_ENV === 'production';
 
 const plugins = [
   new ExtractTextPlugin('bundle.css'),
-  new HTMLPlugin({ template: `${__dirname}/app/view/index.html` }),
+  new HTMLPlugin({ template: `${__dirname}/public/app/views/index.html` }),
   new webpack.DefinePlugin({
     __API_URL__: JSON.stringify(process.env.API_URL),
     __DEBUG__: JSON.stringify(!production),
@@ -32,10 +32,10 @@ if(production) {
 }
 
 module.exports = {
-  entry: `${__dirname}/app/entry.js`,
+  entry: `${__dirname}/public/app/entry.js`,
   output: {
     filename: 'bundle.js',
-    path: `${__dirname}/build`,
+    path: `${__dirname}/public/build`,
   },
   plugins,
   devtool: production ? false : 'source-map',
@@ -67,7 +67,7 @@ module.exports = {
                 loader: 'sass-loader',
                 options: {
                   sourceMap: true,
-                  includePaths: [`${__dirname}/app/assets/css/`],
+                  includePaths: [`${__dirname}public/app/assets/css/`],
                 },
               },
             ],
