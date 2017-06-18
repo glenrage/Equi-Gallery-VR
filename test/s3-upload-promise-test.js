@@ -1,7 +1,7 @@
 'use strict';
 
 require('./lib/test-env.js');
-let awsMocks = require('.lib/aws-mocks.js');
+let awsMocks = require('./lib/aws-mocks.js');
 
 const expect = require('chai').expect;
 const s3UploadPromise = require('../server/lib/s3-upload-promise.js');
@@ -73,7 +73,7 @@ describe('testing s3UploadPromise', function(){
       s3UploadPromise(params)
       .then(done)
       .catch(err => {
-        expect(err.message).to.equal('requires body');
+        expect(err.message).to.equal('requires Body');
         done();
       });
     });
