@@ -1,7 +1,7 @@
 'use strict';
 
 require('./lib/test-env.js');
-// require('./')
+require('./lib/aws-mocks.js');
 
 const expect = require('chai').expect
 const errorMiddleware = require('../server/lib/error-middleware.js');
