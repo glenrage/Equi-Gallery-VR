@@ -1,7 +1,7 @@
 'use strict';
 
 //mocks third party services
-require('./lib/test-env/js');
+require('./lib/test-env.js');
 const awsMocks = require('./lib/aws-mocks.js');
 
 //npm modules
@@ -34,7 +34,19 @@ describe('testing pic-router', function(){
   //removes all models from database after every test
   afterEach(done => cleanDB(done));
 
-  describe('testing post')
+  describe('should respond with a 401', function() {
+    before(done => mockPhoto.call(this, done));
+    before(done => mockUser.call(this, done));
+
+    it('should respond with status 401', done => {
+      request.delete(`${url}/api/gallery/${this.tempUser._id}/pic/${this.tempPhoto._id}`)
+      .set({Authorization: `Bearer ${this.tempToken}`})
+      .end((err, res) => {
+        expect(res.status).to.equal(401);
+        done();
+      });
+    });
+  });
 
 
 
