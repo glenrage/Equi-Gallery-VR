@@ -9,12 +9,11 @@
 
   <!-- Angular Controllers -->
   <!-- <script src="../controllers/vrCtrl.js"></script> -->
-  <script src="public/app/controllers/signupCtrl.js"></script>
+
 
   <!-- Angular Services -->
   <!-- <script src="../app.js"></script>
   <script src="../vr-controllers.js"></script> -->
-
 
   <!-- Main Angular & A-Frame Files -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
@@ -29,6 +28,7 @@
   <script src="public/app/routes.js"></script>
   <script src="public/app/services/authServices.js"></script>
   <script src="public/app/services/userServices.js"></script>
+  <script src="public/app/controllers/signupCtrl.js"></script>
 
 
   <!-- Cascade Style Sheets -->
@@ -38,10 +38,10 @@
 
 </head>
 
-<body ng-app="mainApp">
+<body ng-app="vrControllers">
 
   <!-- Navigation -->
-  <nav class="navbar navbar-default navbar-fixed-top navbar-shrink">
+  <nav ng-hide="MainMenuCtrl.hideNav" class="navbar navbar-default navbar-fixed-top navbar-shrink">
       <div class="container">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header page-scroll">
