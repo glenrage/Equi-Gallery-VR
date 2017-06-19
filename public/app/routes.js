@@ -1,6 +1,6 @@
 'use strict';
 
-const app = angular.module('appRoutes', ['ngRoute']);
+const app = angular.module('vrControllers', ['ngRoute']);
 
 app.config(function($routeProvider, $locationProvider) {
 

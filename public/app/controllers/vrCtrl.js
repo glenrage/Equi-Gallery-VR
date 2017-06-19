@@ -1,25 +1,31 @@
+'use strict';
+
+const angular = require('angular');
 const vrControllers = angular.module('vrControllers', []);
 
-vrControllers.controller('MainMenuCtrl', ['$scope', '$http', '$routeParams',
-  function ($scope, $http, $routeParams) {
+vrControllers.controller('MainMenuCtrl', ['$scope', '$location', '$http', '$routeParams',
+  function ($scope, $location, $http, $routeParams) {
 
     $scope.upperIndex = [350, 330, 310, 290, 270, 250, 230, 210, 190, 170, 150, 130, 110, 90, 70, 50, 30, 10, 350, 330, 310, 290, 270, 250, 170, 150, 130, 110, 90, 70, 50, 30, 10];
     $scope.lowerIndex = [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9,0.9,0.9,0.9,0.9,0.9, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3,1.3,1.3,1.3,1.3,1.3];
 
-    $scope.images = [
+    let path = $location.path();
+    if (path === '/vrfeed') {
+      this.hideNav = true;
+    }
 
-    ];
+    $scope.images = [];
 
-    // $scope.getThumbnail = function(url)
-    // {
-    //   if(url)
-    //    {
-    //     const index = url.lastIndexOf('/') + 1;
-    //     const filename = url.substr(index);
-    //     return 'flickr/thumbnails/flickr/' + filename;
-    //   }
-    //   return '';
-    // }
+    $scope.getThumbnail = function(url)
+    {
+      if(url)
+       {
+        const index = url.lastIndexOf('/') + 1;
+        const filename = url.substr(index);
+        return 'flickr/thumbnails/flickr/' + filename;
+      }
+      return '';
+    };
 
     $scope.viewImage = function(imageURL) {
       window.location.assign('#/image?url=' + imageURL);
@@ -34,7 +40,8 @@ vrControllers.controller('MainMenuCtrl', ['$scope', '$http', '$routeParams',
       }
     }
 
-  }]);
+  },
+]);
 
 vrControllers.controller('ImageCtrl', ['$scope', '$routeParams',
   function ($scope, $routeParams) {
@@ -88,37 +95,35 @@ vrControllers.controller('VideoCtrl', ['$scope', '$routeParams',
   },
 ]);
 
-vrControllers.registerComponent('set-image', {
+AFRAME.registerComponent('set-image', {
   schema: {
     on: {type: 'string'},
     target: {type: 'selector'},
     src: {type: 'string'},
-    dur: {type: 'number', default: 300}
+    dur: {type: 'number', default: 300},
   },
 
-  this.$onInit = () => {
+  init: function() {
     var data = this.data;
     var el = this.el;
 
     this.setupFadeAnimation();
 
     el.addEventListener(data.on, function () {
-      // Fade out image.
       data.target.emit('set-image-fade');
-      // Wait for fade to complete.
       setTimeout(function () {
-        // Set image.
         data.target.setAttribute('material', 'src', data.src);
       }, data.dur);
     });
-  }
+  },
 
-  setupFadeAnimation = () => {
+  setupFadeAnimation: function() {
     var data = this.data;
     var targetEl = this.data.target;
 
-    // Only set up once.
-    if (targetEl.dataset.setImageFadeSetup) { return; }
+    if (targetEl.dataset.setImageFadeSetup) {
+      return;
+    }
     targetEl.dataset.setImageFadeSetup = true;
 
     targetEl.setAttribute('animation__fade', {
@@ -127,7 +132,7 @@ vrControllers.registerComponent('set-image', {
       dir: 'alternate',
       dur: data.dur,
       from: '#FFF',
-      to: '#000'
+      to: '#000',
     });
-  }
+  },
 });
