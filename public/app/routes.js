@@ -7,13 +7,13 @@ app.config(function($routeProvider, $locationProvider) {
   $routeProvider
 
   .when('/', {
-    templateUrl: 'public/app/views/index.html',
+    templateUrl: 'public/app/views/home.html',
   })
 
   .when('/signup', {
     templateUrl: 'public/app/views/pages/users/signup.html',
-    controller: 'signupCtrl',
-    controllerAs: 'signup',
+    // controller: 'signupCtrl',
+    // controllerAs: 'signup',
   })
 
   .when('/login', {
@@ -26,17 +26,21 @@ app.config(function($routeProvider, $locationProvider) {
 
   .when('/vrfeed', {
     templateUrl: 'public/app/views/pages/vr/vr-feed.html',
-    controller: 'MainMenuCtrl'
+    controller: 'MainMenuCtrl',
   })
 
   .when('/image', {
     templateUrl: 'public/app/views/pages/vr/vr-image.html',
-    controller: 'ImageCtrl'
+    controller: 'ImageCtrl',
   })
 
   .otherwise({
-    redirectTo: '/'
-  })
+    redirectTo: '/',
+  });
 
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false,
+  });
 
-})
+});
