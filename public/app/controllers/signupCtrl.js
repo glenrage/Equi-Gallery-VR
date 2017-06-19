@@ -1,16 +1,33 @@
 'use strict';
 
-angular.module('signupController', ['authServices'])
+const angular = require('angular');
+angular.module('mainApp')
+.component('signup', {
+  template: require('../views/users/signup.html'),
+  controllerAs: 'signupCtrl',
+  controller: [
+    '$location',
+    '$window',
+    'authService',
+    SignupController,
+  ],
+});
 
-  .controller('signupController', function(authServices) {
+function SignupController($location, $window, authService) {
+  this.$onInit = () => {
 
-    signupController.$inject = ['authServices'];
-
-
-    authServices.getToken()
-
-    this.signup = function(user) {
-      authServices.signup(user)
+    if(!$window.localStorage.token) {
+      authService.getToken()
+      .then(
+      () => $location.url('/vrfeed'),
+      () => $location.url('/signup')
+      );
     }
 
-  });
+    this.signup = function(user) {
+
+      return authService.signup(user)
+      .then(() => $location.url('/vrfeed'));
+    };
+  };
+}
