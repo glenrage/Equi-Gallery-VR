@@ -59,7 +59,8 @@ vrControllers.controller('ImageCtrl', ['$scope', '$routeParams',
     });
 
     $scope.image = $routeParams.url;
-  }]);
+  },
+]);
 
 vrControllers.controller('VideoCtrl', ['$scope', '$routeParams',
   function ($scope, $routeParams) {
@@ -84,4 +85,49 @@ vrControllers.controller('VideoCtrl', ['$scope', '$routeParams',
     });
 
     $scope.video = $routeParams.url;
-  }]);
+  },
+]);
+
+vrControllers.registerComponent('set-image', {
+  schema: {
+    on: {type: 'string'},
+    target: {type: 'selector'},
+    src: {type: 'string'},
+    dur: {type: 'number', default: 300}
+  },
+
+  this.$onInit = () => {
+    var data = this.data;
+    var el = this.el;
+
+    this.setupFadeAnimation();
+
+    el.addEventListener(data.on, function () {
+      // Fade out image.
+      data.target.emit('set-image-fade');
+      // Wait for fade to complete.
+      setTimeout(function () {
+        // Set image.
+        data.target.setAttribute('material', 'src', data.src);
+      }, data.dur);
+    });
+  }
+
+  setupFadeAnimation = () => {
+    var data = this.data;
+    var targetEl = this.data.target;
+
+    // Only set up once.
+    if (targetEl.dataset.setImageFadeSetup) { return; }
+    targetEl.dataset.setImageFadeSetup = true;
+
+    targetEl.setAttribute('animation__fade', {
+      property: 'material.color',
+      startEvents: 'set-image-fade',
+      dir: 'alternate',
+      dur: data.dur,
+      from: '#FFF',
+      to: '#000'
+    });
+  }
+});
