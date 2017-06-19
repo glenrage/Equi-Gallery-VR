@@ -1,43 +1,47 @@
 <a-scene>
+  <!-- VR Logo -->
+  <a-curvedimage src="../../../assets/images/360us.jpg" radius="5.7" theta-length="36" height="1" position="0 2.6 0" opacity="0.5">
+    <a-animation attribute="rotation" from="0 10 0" to="0 200 0" begin="500" dur="1000"></a-animation>
+  </a-curvedimage>
 
-    <!-- Cursor -->
-    <a-entity>
-        <a-camera position="0 2 0">
-            <a-cursor color="#000"></a-cursor>
-        </a-camera>
-    </a-entity>
+  <!-- Welcome image -->
+  <a-curvedimage src="" radius="5.7" theta-length="30" height=".85" position="0 1.4 0" scale=".4 .4 .4">
+    <a-animation attribute="rotation" from="0 180 0" to="0 203 0" begin="750" dur="1000"></a-animation>
+  </a-curvedimage>
 
-    <!-- VR Logo -->
-    <a-curvedimage src="../../../assets/images/360us.jpg" radius="5.7" theta-length="36" height="1" position="0 2.6 0" opacity="0.5">
-        <a-animation attribute="rotation" from="0 10 0" to="0 200 0" begin="500" dur="1000"></a-animation>
-    </a-curvedimage>
+  <!-- Lower row -->
 
-    <!-- Welcome image -->
-    <a-curvedimage src="" radius="5.7" theta-length="30" height=".85" position="0 1.4 0" scale=".4 .4 .4">
-        <a-animation attribute="rotation" from="0 180 0" to="0 203 0" begin="750" dur="1000"></a-animation>
-    </a-curvedimage>
+  <!-- introduce ng-repeat for images based on JSON data -->
+  <a-curvedimage src="{{getThumbnail(image)}}" url="{{image}}" ng-repeat="image in images track by $index" radius="5.7" class="vr-image" theta-length="18" height=".8" position="0 {{lowerIndex[$index]}} 0" scale=".4 .4 .4" ng-click="viewImage(image)">
+    <a-animation attribute="rotation" from="0 180 0" to="0 {{upperIndex[$index]}} 0" begin="750" dur="1000"></a-animation>
+    <a-event name="click" color="#FFC65D"></a-event>
+    <a-event name="mouseenter" color="#FFC65D"></a-event>
+    <a-event name="mouseleave" color="none"></a-event>
+  </a-curvedimage>
 
-    <!-- Lower row -->
+  <!-- Loop -->
+  <a-entity>
+    <a-cylinder position="0 0.5 0" radius="4" height="1.6" side="back" open-ended="true" color="#FFF"></a-cylinder>
+  </a-entity>
 
-    <!-- introduce ng-repeat for images based on JSON data -->
-    <a-curvedimage src="{{getThumbnail(image)}}" url="{{image}}" ng-repeat="image in images track by $index" radius="5.7" class="vr-image" theta-length="18" height=".8" position="0 {{lowerIndex[$index]}} 0" scale=".4 .4 .4" ng-click="viewImage(image)">
-        <a-animation attribute="rotation" from="0 180 0" to="0 {{upperIndex[$index]}} 0" begin="750" dur="1000"></a-animation>
-        <a-event name="click" color="#FFC65D"></a-event>
-        <a-event name="mouseenter" color="#FFC65D"></a-event>
-        <a-event name="mouseleave" color="none"></a-event>
-    </a-curvedimage>
+  <!-- Floor shadow -->
+  <a-image position="0 -5 0" src=""
+           rotation="-90 0 0" scale="6 6 6"></a-image>
 
-    <!-- Loop -->
-    <a-entity>
-        <a-cylinder position="0 0.5 0" radius="4" height="1.6" side="back" open-ended="true" color="#FFF"></a-cylinder>
-    </a-entity>
+  <a-sky color="#ECECEC"></a-sky>
+  <a-light type="directional" color="#fff" intensity="0.2" position="-1 2 1"></a-light>
+  <a-light type="ambient" color="#fff"></a-light>
 
-    <!-- Floor shadow -->
-    <a-image position="0 -5 0" src=""
-             rotation="-90 0 0" scale="6 6 6"></a-image>
-
-    <a-sky color="#ECECEC"></a-sky>
-    <a-light type="directional" color="#fff" intensity="0.2" position="-1 2 1"></a-light>
-    <a-light type="ambient" color="#fff"></a-light>
-
+  <!-- Cursor -->
+  <a-entity>
+    <a-camera position="0 2 0">
+        <a-cursor color="#000"
+          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+          event-set__1="event: mouseenter; color: #0F0"
+          event-set__2="event: mouseleave; color: #000"
+          fuse="true"
+          raycaster="objects: .link"></a-cursor>
+    </a-camera>
+  </a-entity>
 </a-scene>
