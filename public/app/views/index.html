@@ -16,7 +16,6 @@
   <script src="../vr-controllers.js"></script> -->
 
 
-
   <!-- Main Angular & A-Frame Files -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.min.js"></script>
@@ -27,8 +26,8 @@
 
   <!-- Angular Configs -->
   <script src="public/app/entry.js"></script>
-  <!-- <script src="public/app/routes.js"></script> -->
-  <!-- <script src="public/app/services/authServices.js"></script> -->
+  <script src="public/app/routes.js"></script>
+  <script src="public/app/services/authServices.js"></script>
 
 
   <!-- Cascade Style Sheets -->
@@ -46,7 +45,7 @@
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header page-scroll">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                  <span class="sr-only">Toggle navigation</span>
+                  <!-- <span class="sr-only">Toggle navigation</span> -->
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
@@ -64,16 +63,14 @@
                       <a class="page-scroll" href="/">Home</a>
                   </li>
                   <li class="">
-                      <a ng-show="!main.isLoggedIn" class="page-scroll" href="/login">Login</a>
+                      <a class="page-scroll" href="/login">Login</a>
                   </li>
                   <li class="">
-                      <a ng-show="!main.isLoggedIn" class="page-scroll" href="#/signup">Signup</a>
+                      <a class="page-scroll" href="/signup">Signup</a>
                   </li>
+
                   <li class="">
-                      <a ng-show="main.isLoggedIn" class="page-scroll" href="#" ng-click="main.logout();">Logout</a>
-                  </li>
-                  <li class="">
-                      <a ng-show="main.isLoggedIn" class="page-scroll" href="/profile">Hello {{ main.username }}</a>
+                      <a class="page-scroll" href="/profile">Hello {{ main.username }}</a>
                   </li>
               </ul>
           </div>
@@ -83,31 +80,19 @@
   </nav>
 
 
-  <!-- Header -->
-  <header ng-show="main.home">
-      <div class="container">
-          <div class="intro-text">
-              <div class="intro-lead-in">OMNI SNAP VR</div>
-              <div class="intro-heading">Immerse yourself in Virtual Reality</div>
-              <a ng-show="!main.isLoggedIn" href="/login" class="page-scroll btn btn-xl">Login</a>
-              <a ng-show="!main.isLoggedIn" href="#/signup" class="page-scroll btn twitterbtn">Signup</a>
-              <a ng-show="main.isLoggedIn" href="#" ng-click="main.logout();" class="page-scroll btn btn-xl">Logout</a>
-
-          </div>
-      </div>
-  </header>
 
   <main>
-    <!-- <ng-view></ng-view>
-    <div ng-view> -->
-  </div>
 
+    <ng-view></ng-view>
 
   </main>
 
   <footer>
+
   </footer>
 
+
+  <!-- bootstrap CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
