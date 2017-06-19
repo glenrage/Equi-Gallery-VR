@@ -15,10 +15,10 @@ const User = require('../model/user-model.js');
 
 AWS.config.setPromisesDependency(require('bluebird'));
 
-const s3 = new AWS.S3();
 const dataDir = `${__dirname}/../data`;
 const upload = multer({dest: dataDir});
 const s3UploadPromise = require('../lib/s3-upload-promise.js');
+const s3DeletePromise = require('../lib/s3-delete-promise.js');
 const photoRouter = module.exports = require('express').Router();
 
 photoRouter.post('/api/photo', bearerAuth, upload.single('image'), function(req, res) {
@@ -62,35 +62,28 @@ photoRouter.post('/api/photo', bearerAuth, upload.single('image'), function(req,
   .catch(err => res.send(err));
 });
 
-photoRouter.delete('/api/gallery/:galleryID/pic/:picID', bearerAuth, function(req, res, next) {
-  debug('DELETE /api/gallery/:galleryID/pic/:picID');
+photoRouter.delete('/api/photo/:id', bearerAuth, function(req, res) {
+  debug('DELETE /api/photo/:id');
 
-  let tempPhoto;
-  Photo.findById(req.params.photoID)
+  let tempUser;
+
+  return Photo.findById(req.params.id)
   .then(photo => {
-    if(photo.userID.toString() !== req.user._id.toString())
-      return Promise.reject(createError(401, 'user not authorized to delete this pic'));
-    tempPhoto = photo;
-    return User.findById(req.params.userID);
-  })
-  .catch(err => err.status ? Promise.reject(err) : Promise.reject(createError(404, err.message)))
-  .then(user => {
-    user.pics = user.pics.filter(id => {
-      if(id === req.params.photoID) return false;
-      return true;
-    });
-    return user.save() ;
-  })
-  .then(() => {
     let params = {
       Bucket: process.env.AWS_BUCKET,
-      Key: tempPhoto.objectKey,
+      Key: photo.objectKey,
     };
-    return s3.deleteObject(params).promise();
+    return s3DeletePromise(params);
   })
-  .then(() => {
-    return Photo.findByIdAndRemove(req.params.photoID);
+  .then(() => Photo.findByIdAndRemove(req.params.id))
+  .then(() => User.findById(req.user._id).populate('photos'))
+  .then(user => {
+    tempUser = user;
+    tempUser.photos.filter((photo, i) => {
+      if (photo._id.toString() === req.params.id.toString()) tempUser.photos.splice(i, 1);
+    });
+    return User.findByIdAndUpdate(req.user._id, tempUser, {new: true});
   })
   .then(() => res.sendStatus(204))
-  .catch(next);
+  .catch(err => res.send(err));
 });
