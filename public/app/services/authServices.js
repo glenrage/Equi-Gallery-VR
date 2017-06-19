@@ -1,8 +1,10 @@
+'use strict';
+
 angular.module('authServices', [])
 
 // Factor: Auth handles all login/logout functions
 .factory('Auth', function($http, AuthToken) {
-    var authFactory = {}; // Create the factory object
+    const authFactory = {}; // Create the factory object
 
     // Function to log the user in
     authFactory.login = function(loginData) {
@@ -47,7 +49,7 @@ angular.module('authServices', [])
 
 // Factory: AuthToken handles all token-associated functions
 .factory('AuthToken', function($window) {
-    var authTokenFactory = {}; // Create factory object
+    const authTokenFactory = {}; // Create factory object
 
     // Function to set and remove the token to/from local storage
     authTokenFactory.setToken = function(token) {
@@ -69,11 +71,11 @@ angular.module('authServices', [])
 
 // Factory: AuthInterceptors is used to configure headers with token (passed into config, app.js file)
 .factory('AuthInterceptors', function(AuthToken) {
-    var authInterceptorsFactory = {}; // Create factory object
+    const authInterceptorsFactory = {}; // Create factory object
 
     // Function to check for token in local storage and attach to header if so
     authInterceptorsFactory.request = function(config) {
-        var token = AuthToken.getToken(); // Check if a token is in local storage
+        const token = AuthToken.getToken(); // Check if a token is in local storage
         if (token) config.headers['x-access-token'] = token; //If exists, attach to headers
 
         return config; // Return config object for use in app.js (config file)

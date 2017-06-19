@@ -12,8 +12,8 @@ app.config(function($routeProvider, $locationProvider) {
 
   .when('/signup', {
     templateUrl: 'public/app/views/pages/users/signup.html',
-    // controller: 'signupCtrl',
-    // controllerAs: 'signup',
+    controller: 'signupCtrl',
+    controllerAs: 'signup',
   })
 
   .when('/login', {
@@ -42,5 +42,4 @@ app.config(function($routeProvider, $locationProvider) {
     enabled: true,
     requireBase: false,
   });
-
 });
