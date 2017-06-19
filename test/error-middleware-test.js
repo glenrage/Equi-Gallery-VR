@@ -3,7 +3,7 @@
 require('./lib/test-env.js');
 require('./lib/aws-mocks.js');
 
-const expect = require('chai').expect
+const expect = require('chai').expect;
 const errorMiddleware = require('../server/lib/error-middleware.js');
 
 function responseMock (){
@@ -25,7 +25,7 @@ function responseMock (){
 
 describe('test errorMiddleware', function(){
   describe('with vanilla Error', function(){
-    let res
+    let res;
     before(() => res = responseMock());
     it('should respond with status 500', done => {
       let err = new Error('regular error');
