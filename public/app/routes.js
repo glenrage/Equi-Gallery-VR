@@ -12,8 +12,8 @@ app.config(function($routeProvider, $locationProvider) {
 
   .when('/signup', {
     templateUrl: 'public/app/views/pages/users/signup.html',
-    controller: 'signupCtrl',
-    controllerAs: 'signup',
+    controller: 'signupController',
+    controllerAs: 'signupCtrl',
   })
 
   .when('/login', {
