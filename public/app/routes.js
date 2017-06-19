@@ -17,7 +17,7 @@ app.config(function($routeProvider, $locationProvider) {
   })
 
   .when('/login', {
-    templateUrl: 'public/app/views/pages/users/login.html',
+    templateUrl: 'public/app/views/pages/landing/login/login.html',
   })
 
   .when('/profile', {
