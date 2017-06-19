@@ -69,7 +69,8 @@
     "resolve-url-loader": "^2.0.2",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.18.1",
-    "url-loader": "^0.5.8"
+    "url-loader": "^0.5.8",
+    "webpack": "^3.0.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.6.4",
@@ -89,7 +90,6 @@
     "lorem-ipsum": "^1.0.3",
     "mocha": "^3.4.2",
     "superagent": "^2.3.0",
-    "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   },
   "bugs": {
