@@ -10,7 +10,7 @@ require('angular-touch');
 require('ng-file-upload');
 require('@uirouter/angularjs');
 
-const omniApp = angular.module('omniApp', ['ui.router', 'ui.bootstrap', 'ngAnimate', 'ngTouch', 'ngFileUpload']);
+const omniApp = angular.module('mainApp', ['ui.router', 'ui.bootstrap', 'ngAnimate', 'ngTouch', 'ngFileUpload']);
 
 let context = require.context('./config/', true, /\.js$/);
 context.keys().forEach(path => omniApp.config(context(path)));
