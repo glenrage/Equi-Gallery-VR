@@ -20,7 +20,7 @@ const plugins = [
 ];
 
 if(production) {
-  plugins = plugins.concat([
+  const plugins = plugins.concat([
     new webpack.optimize.UglifyJsPlugin({
       mangle: true,
       compress: {
