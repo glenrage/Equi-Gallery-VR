@@ -25,11 +25,8 @@
 
   <!-- Angular Configs -->
   <script src="public/app/entry.js"></script>
-  <script src="public/app/routes.js"></script>
-  <script src="public/app/services/authServices.js"></script>
-  <script src="public/app/services/userServices.js"></script>
-  <script src="public/app/controllers/signupCtrl.js"></script>
-
+  <script src="public/app/service/authServices.js"></script>
+  <script src="public/app/service/userServices.js"></script>
 
   <!-- Cascade Style Sheets -->
   <link rel="stylesheet" type="text/css" href="public/app/scss/temp.css">
@@ -38,7 +35,7 @@
 
 </head>
 
-<body ng-app="vrControllers">
+<body ng-app="omniApp">
 
   <!-- Navigation -->
   <nav ng-hide="MainMenuCtrl.hideNav" class="navbar navbar-default navbar-fixed-top navbar-shrink">
@@ -84,7 +81,7 @@
 
   <main>
 
-    <ng-view></ng-view>
+    <ui-view><ui-view>
 
   </main>
 

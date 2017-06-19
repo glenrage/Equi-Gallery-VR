@@ -12,7 +12,7 @@ const production = process.env.NODE_ENV === 'production';
 
 const plugins = [
   new ExtractTextPlugin('bundle.css'),
-  new HTMLPlugin({ template: `${__dirname}/public/app/views/index.html` }),
+  new HTMLPlugin({ template: `${__dirname}/public/app/index.html` }),
   new webpack.DefinePlugin({
     __API_URL__: JSON.stringify(process.env.API_URL),
     __DEBUG__: JSON.stringify(!production),
