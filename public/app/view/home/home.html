@@ -1,26 +1,5 @@
 <section class="home-content">
   <h2>Welcome Home yooooooooooooo!!!!!</h2>
-  <create-gallery></create-gallery>
-  <!-- <ul>
-    <label for="gallery search">search for a gallery:</label>
-    <input
-      name="gallery search"
-      type="text"
-      ng-model="homeCtrl.gallerySearchTerm"
-      placeholder="enter a gallery name here!">
-    <uib-accordion close-others="oneAtATime">
-      <gallery-item
-        ng-repeat="item in homeCtrl.galleries | customFuzzySearch : homeCtrl.gallerySearchTerm | orderBy : 'id' | limitTo : 666"
-        gallery="item">
-      </gallery-item>
-    </uib-accordion>
-  </ul>
-  <label for="gallery selection">Select a gallery to upload pics to!</label>
-  <select
-    class="gallery-selector"
-    name="gallery selection"
-    ng-options="item as item.name for item in homeCtrl.galleries track by item._id"
-    ng-model="homeCtrl.currentGallery"></select>
-  <thumbnail-container
-    ng-if="homeCtrl.currentGallery" gallery="homeCtrl.currentGallery"></thumbnail-container> -->
+  <vr-feed></vr-feed>
+  <vr-image></vr-image>
 </section>
