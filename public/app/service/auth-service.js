@@ -40,7 +40,7 @@ function authService($q, $log, $http, $window) {
   service.signup = function(user) {
     $log.debug('#signup');
 
-    let url = `${__API_URL__}/api/signup`;
+    let url = `${__API_URL__}api/signup`;
     let config = {
       headers: {
         'Content-Type': 'application/json',
