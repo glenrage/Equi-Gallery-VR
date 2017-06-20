@@ -18,6 +18,7 @@ const errorMiddleware = require('./server/lib/error-middleware.js');
 const authRouter = require('./server/route/auth-router.js');
 const galleryRouter = require('./server/route/gallery-router.js');
 const photoRouter = require('./server/route/photo-router.js');
+const userRouter = require('./server/route/user-router.js');
 
 //load env vars
 dotenv.load();
@@ -49,6 +50,7 @@ app.use(photoRouter);
 app.use(galleryRouter);
 app.use(authRouter);
 app.use(errorMiddleware);
+app.use(userRouter);
 
 
 // Set Application Static Layout
