@@ -12,7 +12,7 @@ module.exports = [
   homeController,
 ];
 
-function HomeController($log, $rootScope, $window, $location, authService, galleryService) {
+function homeController($log, $rootScope, $window, $location, authService, galleryService) {
   this.$onInit = () => {
     $log.debug('HomeController()');
 
