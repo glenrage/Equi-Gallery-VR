@@ -43,7 +43,7 @@ app.use(cors());
 let production = process.env.NODE_ENV === 'production';
 let morganFormat = production ? 'common' : 'dev';
 app.use(morgan(morganFormat));
-app.use(express.static(`${__dirname}/public`)); // Allow front end to access public folder
+app.use(express.static(`${__dirname}/public/build`)); // Allow front end to access public folder
 
 //app routes
 app.use(photoRouter);
@@ -51,12 +51,6 @@ app.use(galleryRouter);
 app.use(authRouter);
 app.use(errorMiddleware);
 app.use(userRouter);
-
-
-// Set Application Static Layout
-// app.get('*', function(req, res) {
-//   res.sendFile(path.join(__dirname + '/public/app/views/index.html')); // Set index.html as layout
-// });
 
 // Start Server
 const server = module.exports = app.listen(PORT, () => {
