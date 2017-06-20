@@ -4,25 +4,15 @@
 
 module.exports = [
   '$log',
-  '$rootScope',
   '$window',
   '$location',
-  'authService',
-  'galleryService',
-  homeController,
+  ProfileController,
 ];
 
-function HomeController($log, $rootScope, $window, $location, authService, galleryService) {
+function ProfileController($log, $window, $location) {
   this.$onInit = () => {
-    $log.debug('HomeController()');
 
-    if(!$window.localStorage.token) {
-      authService.getToken()
-      .then(
-        () => $location.url('/home'),
-        () => $location.url('/signup')
-      );
-    }
+
 
     this.galleries = [];
 
