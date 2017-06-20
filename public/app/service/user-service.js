@@ -47,6 +47,29 @@ function userService($q, $log, $http, Upload, authService) {
     );
   };
 
+  service.fetchAllPhotos = () => {
+    return authService.getToken()
+    .then(token => {
+      let config = {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      return $http.get(`${__API_URL__}/api/photo`, config);
+    })
+    .then(res => {
+      $log.log('photos retrieved');
+      service.photos = res.data;
+      return res.data;
+    })
+    .catch(err => {
+      $log.error(err.message);
+      return $q.reject(err);
+    });
+  };
+
   service.fetchPhotos = () => {
     return authService.getToken()
     .then(token => {

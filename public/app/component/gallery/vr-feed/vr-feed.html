@@ -10,7 +10,7 @@
   </a-curvedimage>
 
   <!-- 360-degree image -->
-  <a-sky id="image-360" radius="10" color="#00F" src=""></a-sky>
+  <a-sky id="image-360" radius="10"></a-sky>
 
   <!-- introduce ng-repeat for images based on JSON data -->
   <a-curvedimage src="{{getThumbnail(image)}}" url="{{image}}" ng-repeat="image in images track by $index" radius="5.7" class="vr-image" theta-length="18" height=".8" position="0 {{lowerIndex[$index]}} 0" scale=".4 .4 .4" ng-click="viewImage(image)">

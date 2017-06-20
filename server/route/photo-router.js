@@ -62,6 +62,14 @@ photoRouter.post('/api/photo', bearerAuth, upload.single('image'), function(req,
   .catch(err => res.send(err));
 });
 
+photoRouter.get('/api/photo', bearerAuth, function(req, res) {
+  debug('GET /api/photo');
+
+  return Photo.find({})
+  .then(photos => res.json(photos))
+  .catch(err => res.send(err));
+});
+
 photoRouter.delete('/api/photo/:id', bearerAuth, function(req, res) {
   debug('DELETE /api/photo/:id');
 
