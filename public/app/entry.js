@@ -8,6 +8,7 @@ require('angular-animate');
 require('angular-touch');
 require('ng-file-upload');
 require('@uirouter/angularjs');
+require('aframe');
 
 const omniApp = angular.module('omniApp', ['ui.router', 'ngAnimate', 'ngTouch', 'ngFileUpload']);
 

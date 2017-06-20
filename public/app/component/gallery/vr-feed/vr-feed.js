@@ -4,6 +4,7 @@
 const angular = require('angular');
 const vrControllers = angular.module('vrControllers', []);
 
+
 vrControllers.controller('MainMenuCtrl', ['$scope', '$location', '$http', '$routeParams',
   function ($scope, $location, $http, $routeParams) {
 
