@@ -4,14 +4,48 @@ module.exports = [
   '$q',
   '$log',
   '$http',
+  'Upload',
   'authService',
   userService,
 ];
 
-function userService( $q, $log, $http, authService){
+function userService($q, $log, $http, Upload, authService) {
 
   let service = {};
   service.photos = [];
+
+  service.uploadPhoto = function(user, photo) {
+    $log.debug('#userService.uploadPhoto');
+
+    return authService.getToken()
+    .then(token => {
+      let url = `${__API_URL__}/api/photo`;
+      let headers = {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      };
+      return Upload.upload({
+        url,
+        headers,
+        method: 'POST',
+        data: {
+          name: photo.name,
+          desc: photo.desc,
+          file: photo.file,
+        },
+      });
+    })
+    .then(
+      res => {
+        user.photos.push(res.data);
+        return res.data;
+      },
+      err => {
+        $log.error(err.message);
+        return $q.reject(err);
+      }
+    );
+  };
 
   service.fetchPhotos = () => {
     return authService.getToken()
