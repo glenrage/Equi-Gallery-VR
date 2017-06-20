@@ -45,7 +45,7 @@ describe.only('testing auth-router', function() {
             email: exampleUser.email,
           })
           .end((err, res) => {
-            expect(res.status).to.equal(400);
+            expect(res.status).to.equal(500);
             done();
           });
         });
@@ -67,7 +67,9 @@ describe.only('testing auth-router', function() {
       });
 
       describe('with duplicate username', function() {
-        it('should respond with a 400 error', (done) => {
+        before(done => mockUser.call(this, done));
+        it('should respond with a 409 error', (done) => {
+
           request.post(`${url}/api/signup`)
           .send({
             username: this.tempUser.username,
@@ -75,7 +77,7 @@ describe.only('testing auth-router', function() {
             email: exampleUser.email,
           })
           .end((err, res) => {
-            expect(res.status).to.equal(400);
+            expect(res.status).to.equal(409);
             done();
           });
         });
@@ -83,7 +85,7 @@ describe.only('testing auth-router', function() {
 
       describe('with duplicate email', function() {
         before(done => mockUser.call(this, done));
-        it('should respond with status 400', (done) => {
+        it('should respond with status 409', (done) => {
           request.post(`${url}/api/signup`)
           .send({
             username: exampleUser.username,
@@ -91,7 +93,7 @@ describe.only('testing auth-router', function() {
             email: this.tempUser.email,
           })
           .end((err, res) => {
-            expect(res.status).to.equal(400);
+            expect(res.status).to.equal(409);
             // expect(res.text).to.equal('ConflictError')
             done();
           });
@@ -147,11 +149,19 @@ describe.only('testing auth-router', function() {
 
   describe('testing GET route for user login', function(){
     describe('correct parameters of username and password', function(){
+      before(done => mockUser.call(this, done));
       it('should return the username', (done) => {
+        request.post(`${url}/api/signup`)
+      .send({
+        email: this.tempUser.email,
+        password: this.tempUser.password,
+        username: this.tempUser.username,
+      });
         request.get(`${url}/api/login`)
-        .auth(exampleUser.username , exampleUser.password)
+        .auth(this.tempUser.username , this.tempUser.password)
         .end((err, res) => {
-          if(err) throw Error;
+          if(err)
+            return done(err);
           expect(res.body).to.be.instanceOf(String);
           console.log(res.body);
           done();
@@ -159,28 +169,4 @@ describe.only('testing auth-router', function() {
       });
     });
   });
-
-
-
-
-
-
-
-
-  const exampleUser = {
-    username: 'glenrage',
-    password: '12345678',
-    email: 'glen@glenrage.com',
-  };
-
-
-
-
-
-
-
-
-
-
-
 });

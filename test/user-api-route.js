@@ -11,6 +11,13 @@ const serverCtrl = require('./lib/server-ctrl');
 const cleanDB = require('./lib/clean-db.js');
 const url = `http://localhost:${process.env.PORT}`;
 
+const exampleUser = {
+  username: 'glenrage',
+  password: '12345678',
+  email: 'glen@glenrage.com',
+};
+
+
 describe.only('testing api/user route', function() {
   //start the server
   before(done => serverCtrl.serverUp(server, done));
