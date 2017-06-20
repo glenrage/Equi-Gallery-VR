@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A gallery for photographers to upload equirectangular photos and view them in VR",
   "main": "server.js",
+  "engines": {
+    "node":"8.0.0"
+  },
   "directories": {
     "test": "test"
   },
