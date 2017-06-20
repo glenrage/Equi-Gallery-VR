@@ -28,3 +28,5 @@ userRouter.get('/api/user', function(req, res, next) {
   .then(user => res.json(user))
   .catch(next);
 });
+
+userRouter.delete('/api/user/')

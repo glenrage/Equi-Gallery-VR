@@ -14,8 +14,15 @@ authRouter.post('/api/signup', jsonParser, function(req, res, next) {
   debug('POST api/signup');
 
   let password = req.body.password;
+  let username = req.body.username;
+  let unique = req.body.username.unique;
   delete req.body.password;
   let user = new User(req.body);
+
+  if(!username)
+    return next(createError(400, 'username required'));
+  if(username.length < 5)
+    return next(createError(400, 'username must be more than 5 characters'));
 
   if(!password)
     return next(createError(400, 'password required'));
