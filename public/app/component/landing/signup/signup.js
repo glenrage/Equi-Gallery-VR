@@ -17,7 +17,7 @@ module.exports = {
 function SignupController($log, $location, $window, authService) {
   this.$onInit = () => {
     $log.debug('SignupController');
-    this.title = 'Complete this form to signup!';
+    this.title = 'Signup';
 
     if (!$window.localStorage.token) {
       authService.getToken()
