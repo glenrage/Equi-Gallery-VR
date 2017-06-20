@@ -19,4 +19,4 @@ branches:
   - master
 before_script: npm i
 script:
-  - npm run test
+
