@@ -23,6 +23,13 @@ function routerConfig($stateProvider, $urlServiceProvider) {
       controller: 'LandingController',
       controllerAs: 'landingCtrl',
     },
+    {
+      name :'profile',
+      url: '/profile',
+      template: require('../view/profile/profile.html'),
+      controller: 'ProfileController',
+      controllerAs: 'profileCtrl',
+    },
   ];
 
   routes.forEach($stateProvider.state);
