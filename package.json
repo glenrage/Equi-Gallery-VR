@@ -17,7 +17,7 @@
     "test": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "test-debug": "DEBUG='slug*' ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
-    "postinstall": "webpack -p --progress"
+    "heroku-postbuild": "webpack -p --progress"
   },
   "repository": {
     "type": "git",
@@ -72,6 +72,7 @@
     "resolve-url-loader": "^2.0.2",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.18.1",
+    "uglifyjs-webpack-plugin": "^0.4.6",
     "url-loader": "^0.5.8",
     "webpack": "^3.0.0"
   },
