@@ -1,102 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>OmniSnap VR</title>
-
-  <!-- Angular Controllers -->
-  <!-- <script src="../controllers/vrCtrl.js"></script> -->
-
-
-  <!-- Angular Services -->
-  <!-- <script src="../app.js"></script>
-  <script src="../vr-controllers.js"></script> -->
-
-  <!-- Main Angular & A-Frame Files -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.1/angular-resource.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-animate.min.js"></script>
-  <script type="text/javascript" src="https://aframe.io/releases/0.5.0/aframe.min.js"></script> -->
-
-
-  <!-- Angular Configs -->
-  <!-- <script src="public/app/entry.js"></script> -->
-  <!-- <script src="public/app/service/authServices.js"></script>
-  <script src="public/app/service/userServices.js"></script> -->
-
-  <!-- Cascade Style Sheets -->
-
-  <link rel="stylesheet" type="text/css" href="public/app/scss/temp.css">
-
-  <link rel="stylesheet" type="text/css" href="">
-  <link rel="stylesheet" type="text/css" href="">
-
-</head>
-
-<body ng-app="mainApp">
-
-  <!-- Navigation -->
-  <nav ng-hide="MainMenuCtrl.hideNav" class="navbar navbar-default navbar-fixed-top navbar-shrink">
-      <div class="container">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header page-scroll">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                  <!-- <span class="sr-only">Toggle navigation</span> -->
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand page-scroll" href="/">OmniSnap VR</a>
-          </div>
-
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav navbar-right">
-                  <li class="hidden active">
-                      <a href="#page-top"></a>
-                  </li>
-                  <li class="">
-                      <a class="page-scroll" href="/">Home</a>
-                  </li>
-                  <li class="">
-                      <a class="page-scroll" href="/login">Login</a>
-                  </li>
-                  <li class="">
-                      <a class="page-scroll" href="/signup">Signup</a>
-                  </li>
-
-                  <li class="">
-                      <a class="page-scroll" href="/profile">Hello {{ main.username }}</a>
-                  </li>
-              </ul>
-          </div>
-          <!-- /.navbar-collapse -->
-      </div>
-      <!-- /.container-fluid -->
-  </nav>
-
-
-
-  <main>
-
-    <ui-view></ui-view>
-
-  </main>
-
-  <footer>
-
-  </footer>
-
-
-  <!-- bootstrap CDN -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
-
-
-</body>
-
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OmniSnap VR</title>
+    <!-- <script type="text/javascript" src="https://aframe.io/releases/0.5.0/aframe.min.js"></script> -->
+    <!-- Cascade Style Sheets -->
+    <link rel="stylesheet" type="text/css" href="public/app/scss/temp.css">
+  </head>
+  <body ng-app="omniApp">
+    <navbar></navbar>
+    <main>
+      <ui-view></ui-view>
+    </main>
+    <footer></footer>
+    <!-- bootstrap CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </body>
 </html>
