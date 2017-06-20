@@ -1,4 +1,4 @@
-<nav ng-if="MainMenuCtrl.hideNav" class="navbar navbar-default navbar-fixed-top navbar-shrink">
+<nav class="navbar navbar-default navbar-fixed-top navbar-shrink">
   <div class="container">
     <div class="navbar-header page-scroll">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -23,7 +23,7 @@
           <a class="page-scroll" href="/#!/signup">Signup</a>
         </li>
         <li class="">
-          <a class="page-scroll" href="/profile">Hello</a>
+          <a class="page-scroll" ng-click="navbarCtrl.logout()">Logout</a>
         </li>
       </ul>
     </div>

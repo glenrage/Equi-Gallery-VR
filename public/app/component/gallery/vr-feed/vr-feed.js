@@ -1,140 +1,43 @@
-
 'use strict';
 
-const angular = require('angular');
-const vrControllers = angular.module('vrControllers', []);
+module.exports = {
+  template: require('./vr-feed.html'),
+  controllerAs: 'vrFeedCtrl',
+  controller: [
+    '$log',
+    '$scope',
+    '$location',
+    VrFeedController,
+  ],
+};
 
+function VrFeedController($log, $scope, $location) {
+  $log.debug('#vrFeedCtrl');
 
-vrControllers.controller('MainMenuCtrl', ['$scope', '$location', '$http', '$routeParams',
-  function ($scope, $location, $http, $routeParams) {
+  this.upperIndex = [350, 330, 310, 290, 270, 250, 230, 210, 190, 170, 150, 130, 110, 90, 70, 50, 30, 10, 350, 330, 310, 290, 270, 250, 170, 150, 130, 110, 90, 70, 50, 30, 10];
+  this.lowerIndex = [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3];
 
-    $scope.upperIndex = [350, 330, 310, 290, 270, 250, 230, 210, 190, 170, 150, 130, 110, 90, 70, 50, 30, 10, 350, 330, 310, 290, 270, 250, 170, 150, 130, 110, 90, 70, 50, 30, 10];
-    $scope.lowerIndex = [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9,0.9,0.9,0.9,0.9,0.9, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3,1.3,1.3,1.3,1.3,1.3];
+  this.images = [];
 
-    let path = $location.path();
-    if (path === '/vrfeed') {
-      this.hideNav = true;
+  this.getThumbnail = (url) => {
+    if (url) {
+      const index = url.lastIndexOf('/') + 1;
+      const filename = url.substr(index);
+      return 'flickr/thumbnails/flickr/' + filename;
     }
+    return '';
+  };
 
-    $scope.images = [];
+  this.viewImage = (imageURL) => {
+    $location.url('#/image?url=' + imageURL);
+  };
 
-    $scope.getThumbnail = function(url)
-    {
-      if(url)
-       {
-        const index = url.lastIndexOf('/') + 1;
-        const filename = url.substr(index);
-        return 'flickr/thumbnails/flickr/' + filename;
-      }
-      return '';
-    };
-
-    $scope.viewImage = function(imageURL) {
-      window.location.assign('#/image?url=' + imageURL);
-    };
-
-    const scene = document.querySelector('a-scene');
-    if (scene) {
-      if (scene.hasLoaded) {
-        scene.enterVR();
-      } else {
-        scene.addEventListener('loaded', scene.enterVR);
-      }
+  const scene = document.querySelector('a-scene');
+  if (scene) {
+    if (scene.hasLoaded) {
+      scene.enterVR();
+    } else {
+      scene.addEventListener('loaded', scene.enterVR);
     }
-
-  },
-]);
-
-vrControllers.controller('ImageCtrl', ['$scope', '$routeParams',
-  function ($scope, $routeParams) {
-
-    $scope.loading = true;
-
-    const scene = document.querySelector('a-scene');
-    if (scene) {
-      if (scene.hasLoaded) {
-        $scope.loading = false;
-        scene.enterVR();
-      } else {
-        scene.addEventListener('loaded', scene.enterVR);
-      }
-    }
-
-    // Ensure back functionality works as expected across devices
-    $scope.$on('$routeChangeStart', function (scope, next, current) {
-      if (next.$$route.controller == 'ImageCtrl') {
-        window.location.assign('#/home');
-      }
-    });
-
-    $scope.image = $routeParams.url;
-  },
-]);
-
-vrControllers.controller('VideoCtrl', ['$scope', '$routeParams',
-  function ($scope, $routeParams) {
-
-    $scope.loading = true;
-
-    const scene = document.querySelector('a-scene');
-    if (scene) {
-      if (scene.hasLoaded) {
-        $scope.loading = false;
-        scene.enterVR();
-      } else {
-        scene.addEventListener('loaded', scene.enterVR);
-      }
-    }
-
-    // Ensure back functionality works as expected across devices
-    $scope.$on('$routeChangeStart', function (scope, next, current) {
-      if(next.$$route.controller == 'VideoCtrl') {
-        window.location.assign('#/home');
-      }
-    });
-
-    $scope.video = $routeParams.url;
-  },
-]);
-
-AFRAME.registerComponent('set-image', {
-  schema: {
-    on: {type: 'string'},
-    target: {type: 'selector'},
-    src: {type: 'string'},
-    dur: {type: 'number', default: 300},
-  },
-
-  init: function() {
-    var data = this.data;
-    var el = this.el;
-
-    this.setupFadeAnimation();
-
-    el.addEventListener(data.on, function () {
-      data.target.emit('set-image-fade');
-      setTimeout(function () {
-        data.target.setAttribute('material', 'src', data.src);
-      }, data.dur);
-    });
-  },
-
-  setupFadeAnimation: function() {
-    var data = this.data;
-    var targetEl = this.data.target;
-
-    if (targetEl.dataset.setImageFadeSetup) {
-      return;
-    }
-    targetEl.dataset.setImageFadeSetup = true;
-
-    targetEl.setAttribute('animation__fade', {
-      property: 'material.color',
-      startEvents: 'set-image-fade',
-      dir: 'alternate',
-      dur: data.dur,
-      from: '#FFF',
-      to: '#000',
-    });
-  },
-});
+  }
+}
