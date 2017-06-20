@@ -1,5 +1,7 @@
 'use strict';
 
+require('./_vr-feed.scss');
+
 module.exports = {
   template: require('./vr-feed.html'),
   controllerAs: 'vrFeedCtrl',
