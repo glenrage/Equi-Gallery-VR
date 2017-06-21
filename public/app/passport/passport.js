@@ -43,7 +43,7 @@ module.exports = function(app, passport) {
   passport.use(new FaceBookStrategy({
     clientId: process.env.FACEBOOK_CLIENT_ID, //replace with our facebook developer app client id
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET, //replace with our fb developer client Secret
-    callbackURL: 'http://localhost:3000/auth/facebook/callback', //replace with our fb developer app callback url
+    callbackURL: 'http://localhost:8080/auth/facebook/callback', //replace with our fb developer app callback url
     profileFields: ['id', 'displayName', 'photos', 'email']
   },
     function(accessToken, refreshToken, profile, done) {

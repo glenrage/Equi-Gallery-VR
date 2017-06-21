@@ -8,15 +8,14 @@
         'error': loginForm.username.$invalid,
         'success': loginForm.username.$valid,
       }">
-      <input
-        type="text"
-        name="username"
-        placeholder="username"
-        ng-minlength="4"
-        ng-model="loginCtrl.user.username"
-        required>
 
-      <input type="text" placeholder="email">
+
+      <input type="text"
+      placeholder="email"
+      name="email"
+      ng-model="loginCtrl.user.email"
+      required>
+      
     </div>
 
     <div
