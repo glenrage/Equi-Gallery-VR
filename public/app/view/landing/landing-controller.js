@@ -1,6 +1,6 @@
 'use strict';
 
-// require('./_landing.scss');
+require('./_landing.scss');
 
 module.exports = [
   '$log',

@@ -37,7 +37,7 @@ function userService($q, $log, $http, Upload, authService) {
     })
     .then(
       res => {
-        user.photos.push(res.data);
+        service.photos.push(res.data);
         return res.data;
       },
       err => {
