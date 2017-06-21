@@ -1,3 +1,5 @@
 <section class="profile-content">
-  <upload-photo></upload-photo>
+  <button type="button" name="upload" ng-click="profileCtrl.showUpload = !profileCtrl.showUpload">upload</button>
+  <upload-photo ng-if="profileCtrl.showUpload"></upload-photo>
+  <vr-feed></vr-feed>
 </section>
