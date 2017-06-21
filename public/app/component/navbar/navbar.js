@@ -37,6 +37,11 @@ function NavbarController($log, $location, $rootScope, authService) {
       .then(() => $location.url('/join#signup'));
     };
 
+    this.profile = function() {
+      $log.debug('navbarCtrl.profile()');
+      $location.url('/profile');
+    };
+
     $rootScope.$on('$locationChangeSuccess', () => {
       this.checkPath();
     });
