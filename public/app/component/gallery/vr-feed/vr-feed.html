@@ -1,34 +1,58 @@
 <a-scene>
+
+  <a-assets>
+    <img id="sky" src="../../../../assets/images/360us.jpg" alt="">
+    <img id="test" src="../../../../assets/images/360test.jpg"  alt="">
+  </a-assets>
+
+  <!-- <a-sky class="image-360" radius="10" color="blue"></a-sky> -->
+
+
+
   <!-- VR Logo -->
-  <a-curvedimage src="../../../../assets/images/360us.jpg" radius="5.7" theta-length="36" height="1" position="0 2.6 0" opacity="0.5">
+  <!-- <a-curvedimage radius="5.7" theta-length="36" height="1" position="0 2.6 0" opacity="0.5">
     <a-animation attribute="rotation" from="0 10 0" to="0 200 0" begin="500" dur="1000"></a-animation>
-  </a-curvedimage>
+  </a-curvedimage> -->
 
   <!-- Welcome image -->
-  <a-curvedimage src="" radius="5.7" theta-length="30" height=".85" position="0 1.4 0" scale=".4 .4 .4">
-    <a-animation attribute="rotation" from="0 180 0" to="0 203 0" begin="750" dur="1000"></a-animation>
-  </a-curvedimage>
+  <!-- <a-curvedimage src="" radius="5.7" theta-length="30" height=".85" position="0 1.4 0" scale=".4 .4 .4">
+    <a-animation attribute="rotation" from="0 180 0" to="0 203 0" begin="750" dur="1000"></a-animation> -->
+  <!-- </a-curvedimage> -->
 
   <!-- 360-degree image -->
-  <a-sky class="image-360" radius="10" color="#00F"></a-sky>
+  <!-- <a-assets>
+    <img id="sky" src="../../../../assets/images/360us.jpg" alt="">
+    <img id="test"src="../../../../assets/images/360test.jpg"  alt="">
+  </a-assets>
+
+  <a-sky class="image-360" radius="10" src="#sky"></a-sky> -->
 
   <!-- introduce ng-repeat for images based on JSON data -->
-  <!-- <a-curvedimage src="{{getThumbnail(image)}}" url="{{image}}" ng-repeat="image in images track by $index" radius="5.7" class="vr-image" theta-length="18" height=".8" position="0 {{lowerIndex[$index]}} 0" scale=".4 .4 .4" ng-click="viewImage(image)">
-    <a-animation attribute="rotation" from="0 180 0" to="0 {{upperIndex[$index]}} 0" begin="750" dur="1000"></a-animation>
+  <a-curvedimage  src="#test" radius="5.7" class="vr-image" theta-length="18" height=".8" position="-.8 3.8 -9" scale="1 1 1" >
+    <!-- <a-animation attribute="rotation" from="0 180 0" to="0 2.6 0" begin="750" dur="1000"></a-animation> -->
     <a-event name="click" color="#FFC65D"></a-event>
     <a-event name="mouseenter" color="#FFC65D"></a-event>
     <a-event name="mouseleave" color="none"></a-event>
-  </a-curvedimage> -->
+  </a-curvedimage>
+
+  <a-curvedimage  src="#sky" radius="5.7" class="vr-image" theta-length="18" height=".8" position="2 3.8 -9" scale="1 1 1" >
+    <!-- <a-animation attribute="rotation" from="0 180 0" to="0 2.6 0" begin="750" dur="1000"></a-animation> -->
+    <a-event name="click" color="#FFC65D"></a-event>
+    <a-event name="mouseenter" color="#FFC65D"></a-event>
+    <a-event name="mouseleave" color="none"></a-event>
+  </a-curvedimage>
+
+
 
   <!-- Loop -->
   <a-entity>
-    <a-cylinder position="0 0.5 0" radius="4" height="1.6" side="back" open-ended="true"></a-cylinder>
+    <a-cylinder  color="blue" radius="10" height="5" position="0 3.9 0" side="back" open-ended="true"></a-cylinder>
   </a-entity>
 
   <!-- Floor shadow -->
-  <a-image position="0 -5 0" rotation="-90 0 0" scale="6 6 6"></a-image>
+  <!-- <a-image position="0 -5 0" rotation="-90 0 0" scale="6 6 6"></a-image>
   <a-light type="directional" color="#fff" intensity="0.2" position="-1 2 1"></a-light>
-  <a-light type="ambient" color="#fff"></a-light>
+  <a-light type="ambient" color="#0f0"></a-light> -->
 
   <!-- Cursor fixed to the camera -->
   <a-entity>

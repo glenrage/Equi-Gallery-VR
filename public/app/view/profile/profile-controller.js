@@ -12,6 +12,8 @@ module.exports = [
 function ProfileController($log, $location, authService) {
   this.$onInit = () => {
     $log.debug('ProfileController()');
-    
+
+    this.showUpload = false;
+
   };
 }
