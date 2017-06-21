@@ -8,7 +8,6 @@ module.exports = [
   '$window',
   '$location',
   'authService',
-  // 'galleryService',
   HomeController,
 ];
 
@@ -23,19 +22,5 @@ function HomeController($log, $rootScope, $window, $location, authService) {
         () => $location.url('/signup')
       );
     }
-    //
-    // this.galleries = [];
-    //
-    // this.fetchGalleries = () => {
-    //   return galleryService.fetchGalleries()
-    //   .then(galleries => {
-    //     this.galleries = galleries;
-    //     this.currentGallery = this.galleries[0];
-    //   })
-    //   .catch(err => $log.error(err));
-    // };
-
-    // $rootScope.$on('locationChangeSuccess', this.fetchGalleries);
-    // this.fetchGalleries();
   };
 }

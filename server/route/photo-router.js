@@ -21,7 +21,7 @@ const s3UploadPromise = require('../lib/s3-upload-promise.js');
 const s3DeletePromise = require('../lib/s3-delete-promise.js');
 const photoRouter = module.exports = require('express').Router();
 
-photoRouter.post('/api/photo', bearerAuth, upload.single('image'), function(req, res) {
+photoRouter.post('/api/photo', bearerAuth, upload.single('file'), function(req, res) {
   debug('POST /api/photo');
 
   if (!req.file) return createError(400, 'Resource required');

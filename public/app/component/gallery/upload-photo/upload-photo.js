@@ -17,10 +17,11 @@ module.exports = {
 
 function UploadPhotoController($log, userService) {
   this.$onInit = () => {
-    $log.debug('uploadPhotoCtrl');
+    $log.debug('#uploadPhotoCtrl');
     this.photo = {};
+    $log.log(user);
 
-    this.uploadPic = () => {
+    this.uploadPhoto = () => {
       userService.uploadPhoto(this.user, this.photo)
       .then(
         () => {

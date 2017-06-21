@@ -20,8 +20,8 @@ let plugins = [
   }),
 ];
 
-if(production) {
-   plugins = plugins.concat([
+if (production) {
+  plugins = plugins.concat([
     new UglifyJsPlugin({
       mangle: true,
       compress: {
@@ -44,7 +44,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        // exclude: /node_modules/,
+        exclude: /node_modules/,
         use: 'babel-loader',
       },
       {
@@ -54,6 +54,10 @@ module.exports = {
       {
         test: /\.(eot|ttf|woff|svg).*/,
         use: 'url?limit=10000&name=image/[hash].[ext]',
+      },
+      {
+        test: /\.(jpg|jpeg|tiff|png|gif)$/,
+        loader: 'url-loader?limit=100000&name=image/[hash].[ext]',
       },
       {
         test: /\.scss$/,
@@ -68,7 +72,7 @@ module.exports = {
                 loader: 'sass-loader',
                 options: {
                   sourceMap: true,
-                  includePaths: [`${__dirname}public/app/assets/css/`],
+                  includePaths: [`${__dirname}/public/app/assets/css/`],
                 },
               },
             ],
