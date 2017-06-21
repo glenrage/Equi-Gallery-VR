@@ -19,7 +19,7 @@ function UploadPhotoController($log, userService) {
   this.$onInit = () => {
     $log.debug('#uploadPhotoCtrl');
     this.photo = {};
-    $log.log(user);
+    $log.log(this.user);
 
     this.uploadPhoto = () => {
       userService.uploadPhoto(this.user, this.photo)
