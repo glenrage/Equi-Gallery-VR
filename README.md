@@ -1,5 +1,7 @@
 # Equi-Gallery-VR
 
+## Project utilizing Angular.js, A-Frame, Node.js, Express, and MongoDB.
+
 # Log In & New User Sign Up Page
 
 <img width="1227" alt="screen shot 2017-07-06 at 12 31 19 pm" src="https://user-images.githubusercontent.com/18604203/27929660-a2aff542-6248-11e7-89c8-e856d9f6c3a4.png">
