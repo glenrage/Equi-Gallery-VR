@@ -1,6 +1,10 @@
 # Equi-Gallery-VR
 
-## Project utilizing Angular.js, A-Frame, Node.js, Express, and MongoDB.
+
+
+### Project utilizing Angular.js, A-Frame, Node.js, Express, and MongoDB.
+
+
 
 # Log In & New User Sign Up Page
 
@@ -9,7 +13,7 @@
 
 # Uploading Photos
 
-Once logged in, upload photos by populating the form inputs with name and description in User Profile. The following is an example photo taken on a Ricoh Theta 360 Camera.
+Once logged in, upload equi-rectangular photos by populating the form inputs with name and description in User Profile. The following is an example photo taken on a Ricoh Theta 360 Camera.
 
 ![prague_getty](https://user-images.githubusercontent.com/18604203/27929965-cf25c100-6249-11e7-812d-b78401372667.jpg)
 
@@ -22,6 +26,8 @@ The following is an example of the gallery view on a browser. Focusing on the Go
 
 
 # Viewing Gallery In VR On Supported Devices
+
+In VR mode, user has the ability to 'enter' into the photo from the gallery and view photo from a panoramic VR point of view.
 
 <img width="924" alt="screen shot 2017-07-06 at 12 34 49 pm" src="https://user-images.githubusercontent.com/18604203/27931111-e9fc478e-624d-11e7-9c86-8866713a4754.png">
 
