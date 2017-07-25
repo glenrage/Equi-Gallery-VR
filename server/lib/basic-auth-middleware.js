@@ -1,7 +1,7 @@
 
 'use strict';
 
-const debug = require('debug')('pokegram:basic-auth-middleware');
+const debug = require('debug')('equi-gallery:basic-auth-middleware');
 const createError = require('http-errors');
 
 module.exports = function(req, res, next) {

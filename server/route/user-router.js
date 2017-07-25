@@ -23,10 +23,8 @@ const userRouter = module.exports = require('express').Router();
 
 userRouter.get('/api/user', function(req, res, next) {
   debug('GET /api/user');
-  User.find({})
+  User.findOne({})
   .populate('photos')
   .then(user => res.json(user))
   .catch(next);
 });
-
-userRouter.delete('/api/user/')

@@ -10,9 +10,9 @@
   "rules": {
     "no-console": "off",
     "indent": [ "error", 2 ],
-    "semi": ["error", "always"],
+    "semi": ["error", "never"],
     "linebreak-style": [ "error", "unix" ],
-    "comma-dangle": ["error", "always-multiline"],
+    "comma-dangle": ["error", "never"],
     "quotes": ["error", "single", { "allowTemplateLiterals": true }]
   },
   "ecmaFeatures": {
