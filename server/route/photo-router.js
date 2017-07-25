@@ -19,6 +19,7 @@ const dataDir = `${__dirname}/../data`;
 const upload = multer({dest: dataDir});
 const s3UploadPromise = require('../lib/s3-upload-promise.js');
 const s3DeletePromise = require('../lib/s3-delete-promise.js');
+
 const photoRouter = module.exports = require('express').Router();
 
 photoRouter.post('/api/photo', bearerAuth, upload.single('file'), function(req, res) {

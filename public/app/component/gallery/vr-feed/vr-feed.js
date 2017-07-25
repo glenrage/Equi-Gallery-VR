@@ -1,45 +1,59 @@
 'use strict';
 
-require('./_vr-feed.scss');
+require('./_vr-feed.scss')
 
 module.exports = {
   template: require('./vr-feed.html'),
   controllerAs: 'vrFeedCtrl',
+  bindings: {
+    user: '<',
+    photo: '<',
+  },
   controller: [
     '$log',
-    '$scope',
-    '$location',
-    VrFeedController,
+    '$document',
+    'userService',
+    VRFeedController,
   ],
 };
 
-function VrFeedController($log, $scope, $location) {
-  $log.debug('#vrFeedCtrl');
+function VRFeedController($log, $document, userService) {
+  this.$onInit = () => {
+    $log.debug('#VRFeedCtrl');
 
-  this.upperIndex = [350, 330, 310, 290, 270, 250, 230, 210, 190, 170, 150, 130, 110, 90, 70, 50, 30, 10, 350, 330, 310, 290, 270, 250, 170, 150, 130, 110, 90, 70, 50, 30, 10];
-  this.lowerIndex = [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3];
+    this.photoClicked = false;
 
-  this.images = [];
+    // let scene = require('angular').element('<a-scene>');
+    // $log.log(scene);
+    // if (scene[0]) {
+    //   if (scene.hasLoaded) {
+    //     scene.enterVR();
+    //   } else {
+    //     scene.on('afterRender', scene.enterVR);
+    //   }
+    // }
 
-  this.getThumbnail = (url) => {
-    if (url) {
-      const index = url.lastIndexOf('/') + 1;
-      const filename = url.substr(index);
-      return 'flickr/thumbnails/flickr/' + filename;
+    this.photoWasClicked = (pic) => {
+      $log.debug('#vrFeedCtrl.photoWasClicked');
+      $log.log(pic);
+      this.clickedPic = pic;
+      this.photoClicked = true;
     }
-    return '';
-  };
 
-  this.viewImage = (imageURL) => {
-    $location.url('#/image?url=' + imageURL);
-  };
+    this.fetchUserPhotos = () => {
+      $log.debug('#vrFeedCtrl.fetchUserPhotos');
 
-  const scene = document.querySelector('a-scene');
-  if (scene) {
-    if (scene.hasLoaded) {
-      scene.enterVR();
-    } else {
-      scene.addEventListener('loaded', scene.enterVR);
-    }
-  }
+      userService.fetchPhotos()
+      .then(user => {
+        this.user = user;
+        this.user.photos.forEach((ele, i) => {
+          if (i === 0) ele.xValue = -0.8;
+          if (i > 0) ele.xValue = this.user.photos[i - 1].xValue + 2.8;
+        });
+      })
+      .catch(err => $log.error(err.message));
+    };
+
+    this.fetchUserPhotos();
+  };
 }

@@ -84,8 +84,7 @@ function userService($q, $log, $http, Upload, authService) {
     })
     .then(res => {
       $log.log('photos retrieved');
-      service.photos = res.data.photos;
-      return res.data.photos;
+      return res.data;
     })
     .catch(err => {
       $log.error(err.message);
